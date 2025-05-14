@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling</title> 
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script> 
+</head>
+<body>
+    <button id="mybutton">Click me</button>
+    <div id="hoverdiv" style="width:100px;height:100px;background-color:gray;"></div>    
+    <input type="text" id="inputfield" placeholder="Focus on me">
+    <div id="parent">
+        <button class="child">Child button</button>
+    </div>
+
+    <script>
+        // click()
+        $('#mybutton').click(function() {
+            alert('Button clicked!');
+        });
+
+        // hover()
+        $('#hoverdiv').hover(
+            function() {
+                $(this).css('background-color', 'blue');
+            },
+            function() {
+                $(this).css('background-color', 'gray');
+            }
+        );
+
+        // focus()
+        $('#inputfield').focus(function() {
+            $(this).css('border', '2px solid green');
+        });
+
+        // blur()
+        $('#inputfield').blur(function() {
+            $(this).css('border', '2px solid red');
+        });
+
+        // on() - Delegate event handling to child button inside #parent
+        $('#parent').on('click', '.child', function() {
+            alert('Child button clicked!');
+        });
+
+        // off() - Disable the click handler after it is triggered once
+        $('#mybutton').on('click', showAlert);
+
+        function showAlert() {
+            alert('Button clicked!');
+            // Remove the click handler
+            $('#mybutton').off('click', showAlert);
+        }
+    </script>
+</body>
+</html>
